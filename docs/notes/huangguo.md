@@ -5,7 +5,7 @@
 - **原始来源**: XPTV 扩展 (https://github.com/Yswag/xptv-extensions)
 - **源类型**: HTML 刮削
 - **移植目标**: uzVideo JS 扩展 (type 101)
-- **状态**: ⚠️待测
+- **状态**: ✅已验证 (2026-09-01)
 
 ## 原始接口 (XPTV)
 - `getConfig()` → 返回 TABS 数组（首页/分类/排行榜）
