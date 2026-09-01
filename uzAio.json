@@ -5,137 +5,11 @@
   "live": [],
   "vod": [
     {
-      "name": "4k-av",
-      "version": 1,
-      "remark": "移植自 XPTV 4kav.js",
-      "webSite": "https://4kmp.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/4kav_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "七色番",
-      "version": 1,
-      "remark": "移植自 XPTV 7sefun.js",
-      "webSite": "https://www.7sefun.top",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/7sefun_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "91Porn",
-      "version": 1,
-      "remark": "移植自 XPTV 91_vod_xptv.js",
-      "webSite": "https://vod.infiniteapi.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/91_vod_xptv_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "小雅tvbox",
-      "version": 1,
-      "remark": "移植自 XPTV alist_tvbox.js",
-      "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/alist_tvbox_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "小雅原版",
-      "version": 1,
-      "remark": "移植自 XPTV alist_xiaoya.js",
-      "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/alist_xiaoya_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "anfuns",
-      "version": 1,
-      "remark": "移植自 XPTV anfuns.js",
-      "webSite": "https://www.anfuns.org",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/anfuns_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "anime1",
-      "version": 1,
-      "remark": "移植自 XPTV anime1.js",
-      "webSite": "https://anime1.me",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/anime1_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "aowu",
-      "version": 1,
-      "remark": "移植自 XPTV aowu.js",
-      "webSite": "https://www.aowu.tv",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/aowu_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
       "name": "小蘋果",
       "version": 1,
       "remark": "移植自 XPTV apple.js",
       "webSite": "http://item.xpgcom.com",
       "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/apple_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "avdb",
-      "version": 1,
-      "remark": "移植自 XPTV avdb.js",
-      "webSite": "https://avdbapi.com/api.php/provide/vod",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/avdb_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "avtoday",
-      "version": 1,
-      "remark": "移植自 XPTV avtoday.js",
-      "webSite": "https://avtoday.io",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/avtoday_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "bililive",
-      "version": 1,
-      "remark": "移植自 XPTV bililive.js",
-      "webSite": "https://live.bilibili.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/bililive_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "兩個BT",
-      "version": 1,
-      "remark": "移植自 XPTV bttwo.js",
-      "webSite": "https://www.bttwo.me",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/bttwo_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "catflix",
-      "version": 1,
-      "remark": "移植自 XPTV catflix.js",
-      "webSite": "https://catflix.su",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/catflix_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "未知源",
-      "version": 1,
-      "remark": "移植自 XPTV cupfox.js",
-      "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/cupfox_uz.js",
       "type": 101,
       "order": "C"
     },
@@ -149,74 +23,11 @@
       "order": "C"
     },
     {
-      "name": "douyu",
+      "name": "avtoday",
       "version": 1,
-      "remark": "移植自 XPTV douyu.js",
-      "webSite": "https://www.douyu.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/douyu_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "短劇天堂",
-      "version": 1,
-      "remark": "移植自 XPTV duanjutt.js",
-      "webSite": "https://duanjutt.tv",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/duanjutt_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "fmovies",
-      "version": 1,
-      "remark": "移植自 XPTV fmovies.js",
-      "webSite": "https://fmovies.llc",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/fmovies_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "未知源",
-      "version": 1,
-      "remark": "移植自 XPTV gzys.js",
-      "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/gzys_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "hanime",
-      "version": 1,
-      "remark": "移植自 XPTV hanime.js",
-      "webSite": "https://hanime1.me",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/hanime_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "hdmoli",
-      "version": 1,
-      "remark": "移植自 XPTV hdmoli.js",
-      "webSite": "https://hdmoli.pro",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/hdmoli_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "花都",
-      "version": 1,
-      "remark": "移植自 XPTV hdys.js",
-      "webSite": "https://hd.huaduys.org",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/hdys_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "韓劇看看",
-      "version": 1,
-      "remark": "移植自 XPTV hjkk.js",
-      "webSite": "https://www.hanjukankan.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/hjkk_uz.js",
+      "remark": "移植自 XPTV avtoday.js",
+      "webSite": "https://avtoday.io",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/avtoday_uz.js",
       "type": 101,
       "order": "C"
     },
@@ -230,74 +41,20 @@
       "order": "C"
     },
     {
-      "name": "HOHOJ",
+      "name": "symx",
       "version": 1,
-      "remark": "移植自 XPTV hohoj.js",
-      "webSite": "https://hohoj.tv",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/hohoj_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "未知源",
-      "version": 1,
-      "remark": "移植自 XPTV huangguo.js",
+      "remark": "移植自 XPTV symx.js",
       "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/huangguo_uz.js",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/symx_uz.js",
       "type": 101,
       "order": "C"
     },
     {
-      "name": "未知源",
+      "name": "hanime",
       "version": 1,
-      "remark": "移植自 XPTV huya.js",
-      "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/huya_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "愛壹帆",
-      "version": 1,
-      "remark": "移植自 XPTV iyftv.js",
-      "webSite": "https://m10.iyf.tv",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/iyftv_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "jable",
-      "version": 1,
-      "remark": "移植自 XPTV jable.js",
-      "webSite": "https://jable.tv",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/jable_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "JAVDB",
-      "version": 1,
-      "remark": "移植自 XPTV javdb_vod_xptv.js",
-      "webSite": "https://vod.infiniteapi.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/javdb_vod_xptv_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "未知源",
-      "version": 1,
-      "remark": "移植自 XPTV jcy.js",
-      "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/jcy_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "絕對影視",
-      "version": 1,
-      "remark": "移植自 XPTV jdys.js",
-      "webSite": "https://www.jdys.art",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/jdys_uz.js",
+      "remark": "移植自 XPTV hanime.js",
+      "webSite": "https://hanime1.me",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/hanime_uz.js",
       "type": 101,
       "order": "C"
     },
@@ -311,52 +68,43 @@
       "order": "C"
     },
     {
-      "name": "金牌影视",
+      "name": "avdb",
       "version": 1,
-      "remark": "移植自 XPTV jpyy.js",
+      "remark": "移植自 XPTV avdb.js",
+      "webSite": "https://avdbapi.com/api.php/provide/vod",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/avdb_uz.js",
+      "type": 101,
+      "order": "C"
+    },
+    {
+      "name": "七色番",
+      "version": 1,
+      "remark": "移植自 XPTV 7sefun.js",
+      "webSite": "https://www.7sefun.top",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/7sefun_uz.js",
+      "type": 101,
+      "order": "C"
+    },
+    {
+      "name": "cupfox",
+      "version": 1,
+      "remark": "移植自 XPTV cupfox.js",
       "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/jpyy_uz.js",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/cupfox_uz.js",
       "type": 101,
       "order": "C"
     },
     {
-      "name": "加藤視頻",
+      "name": "douyu",
       "version": 1,
-      "remark": "移植自 XPTV jtapp.js",
-      "webSite": "https://5jsd6q7.jnfkdtm.xyz/shorter",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/jtapp_uz.js",
+      "remark": "移植自 XPTV douyu.js",
+      "webSite": "https://www.douyu.com",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/douyu_uz.js",
       "type": 101,
       "order": "C"
     },
     {
-      "name": "kbjfan",
-      "version": 1,
-      "remark": "移植自 XPTV kbjfan.js",
-      "webSite": "https://www.kbjfan.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/kbjfan_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "未知源",
-      "version": 1,
-      "remark": "移植自 XPTV kuaikaw.js",
-      "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/kuaikaw_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "未知源",
-      "version": 1,
-      "remark": "移植自 XPTV laodifang.js",
-      "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/laodifang_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "未知源",
+      "name": "lmm85",
       "version": 1,
       "remark": "移植自 XPTV lmm85.js",
       "webSite": "",
@@ -365,173 +113,29 @@
       "order": "C"
     },
     {
-      "name": "麻豆社",
+      "name": "aowu",
       "version": 1,
-      "remark": "移植自 XPTV madou.js",
-      "webSite": "https://madou.club",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/madou_uz.js",
+      "remark": "移植自 XPTV aowu.js",
+      "webSite": "https://www.aowu.tv",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/aowu_uz.js",
       "type": 101,
       "order": "C"
     },
     {
-      "name": "小米",
+      "name": "kuaikaw",
       "version": 1,
-      "remark": "移植自 XPTV mihdr.js",
-      "webSite": "https://mihdr.top",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/mihdr_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "南風短劇",
-      "version": 1,
-      "remark": "移植自 XPTV nanfdj.js",
-      "webSite": "https://www.nanf.cc",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/nanfdj_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "未知源",
-      "version": 1,
-      "remark": "移植自 XPTV nmlive.js",
+      "remark": "移植自 XPTV kuaikaw.js",
       "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/nmlive_uz.js",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/kuaikaw_uz.js",
       "type": 101,
       "order": "C"
     },
     {
-      "name": "NO視頻",
-      "version": 1,
-      "remark": "移植自 XPTV novipnoad.js",
-      "webSite": "https://www.novipnoad.net",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/novipnoad_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "one源",
-      "version": 1,
-      "remark": "移植自 XPTV one.js",
-      "webSite": "https://vod.infiniteapi.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/one_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "ph_gay",
-      "version": 1,
-      "remark": "移植自 XPTV ph_vod_gay.js",
-      "webSite": "https://vod.infiniteapi.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/ph_vod_gay_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "Pornhub",
-      "version": 1,
-      "remark": "移植自 XPTV ph_vod_xptv.js",
-      "webSite": "https://vod.infiniteapi.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/ph_vod_xptv_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "pornhub",
-      "version": 1,
-      "remark": "移植自 XPTV pornhub.js",
-      "webSite": "https://cn.pornhub.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/pornhub_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "未知源",
+      "name": "ppnix",
       "version": 1,
       "remark": "移植自 XPTV ppnix.js",
       "webSite": "",
       "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/ppnix_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "皮皮蝦",
-      "version": 1,
-      "remark": "移植自 XPTV ppxys.js",
-      "webSite": "http://ppxys.vip",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/ppxys_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "人人",
-      "version": 1,
-      "remark": "移植自 XPTV rrmj.js",
-      "webSite": "https://api.rrmj.plus",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/rrmj_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "燒火電影",
-      "version": 1,
-      "remark": "移植自 XPTV saohuo.js",
-      "webSite": "https://saohuo.tv",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/saohuo_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "素白白",
-      "version": 1,
-      "remark": "移植自 XPTV subaibai.js",
-      "webSite": "https://www.subaibai.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/subaibai_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "未知源",
-      "version": 1,
-      "remark": "移植自 XPTV symx.js",
-      "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/symx_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "桃花族",
-      "version": 1,
-      "remark": "移植自 XPTV taohuazu.js",
-      "webSite": "http://7340hsck.cc",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/taohuazu_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "天天影視",
-      "version": 1,
-      "remark": "移植自 XPTV tiantian.js",
-      "webSite": "http://op.ysdqjs.cn",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/tiantian_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "twivideo",
-      "version": 1,
-      "remark": "移植自 XPTV twivideo.js",
-      "webSite": "https://twivideo.net",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/twivideo_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "正奕",
-      "version": 1,
-      "remark": "移植自 XPTV wobg.js",
-      "webSite": "http://jnczyl.top:8900",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/wobg_uz.js",
       "type": 101,
       "order": "C"
     },
@@ -545,43 +149,43 @@
       "order": "C"
     },
     {
-      "name": "Xhamster",
+      "name": "金牌影视",
       "version": 1,
-      "remark": "移植自 XPTV xh_vod_xptv.js",
-      "webSite": "https://vod.infiniteapi.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/xh_vod_xptv_uz.js",
+      "remark": "移植自 XPTV jpyy.js",
+      "webSite": "",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/jpyy_uz.js",
       "type": 101,
       "order": "C"
     },
     {
-      "name": "xhamster",
+      "name": "twivideo",
       "version": 1,
-      "remark": "移植自 XPTV xhamster.js",
-      "webSite": "https://zh.xhamster.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/xhamster_uz.js",
+      "remark": "移植自 XPTV twivideo.js",
+      "webSite": "https://twivideo.net",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/twivideo_uz.js",
       "type": 101,
       "order": "C"
     },
     {
-      "name": "小紅",
+      "name": "anime1",
       "version": 1,
-      "remark": "移植自 XPTV xiaohys.js",
-      "webSite": "https://www.xiaohys.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/xiaohys_uz.js",
+      "remark": "移植自 XPTV anime1.js",
+      "webSite": "https://anime1.me",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/anime1_uz.js",
       "type": 101,
       "order": "C"
     },
     {
-      "name": "星芽短劇",
+      "name": "gzys",
       "version": 1,
-      "remark": "移植自 XPTV xingya.js",
-      "webSite": "https://app.whjzjx.cn",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/xingya_uz.js",
+      "remark": "移植自 XPTV gzys.js",
+      "webSite": "",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/gzys_uz.js",
       "type": 101,
       "order": "C"
     },
     {
-      "name": "未知源",
+      "name": "yiys",
       "version": 1,
       "remark": "移植自 XPTV yiys.js",
       "webSite": "",
@@ -590,47 +194,20 @@
       "order": "C"
     },
     {
-      "name": "云盘吧",
+      "name": "huangguo",
       "version": 1,
-      "remark": "移植自 XPTV yunpan8.js",
-      "webSite": "https://yunpan8.cc",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/yunpan8_uz.js",
+      "remark": "移植自 XPTV huangguo.js",
+      "webSite": "",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/huangguo_uz.js",
       "type": 101,
       "order": "C"
     },
     {
-      "name": "云盘资源网",
+      "name": "NO視頻",
       "version": 1,
-      "remark": "移植自 XPTV yunpanres.js",
-      "webSite": "https://res.yunpan.win",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/yunpanres_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "多多影音",
-      "version": 1,
-      "remark": "移植自 XPTV yydsys.js",
-      "webSite": "https://tv.yydsys.top",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/yydsys_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "零度影視",
-      "version": 1,
-      "remark": "移植自 XPTV zero.js",
-      "webSite": "http://zero.mitotv.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/zero_uz.js",
-      "type": 101,
-      "order": "C"
-    },
-    {
-      "name": "在线之家",
-      "version": 1,
-      "remark": "移植自 XPTV zxzj.js",
-      "webSite": "https://www.zxzjhd.com",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/zxzj_uz.js",
+      "remark": "移植自 XPTV novipnoad.js",
+      "webSite": "https://www.novipnoad.net",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/novipnoad_uz.js",
       "type": 101,
       "order": "C"
     }
