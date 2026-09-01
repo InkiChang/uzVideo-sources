@@ -19,8 +19,8 @@
 //   XPTV getPlayinfo(ext)   → getVideoPlayUrl() (提取 m3u8)
 //   XPTV search(ext)        → searchVideo()
 //
-// 注意: 站点封面图可能为 AES-128-CBC 加密，uzVideo 无解密代理层，
-//       封面可能无法显示（不影响播放）。
+// 封面: 站点封面为 AES-128-CBC 加密，使用 uzVideo 内置 CryptoJS 解密
+//       解密后转 base64 data URI 赋给 vod_pic (v1.5.40+ 支持 data URI)
 // ============================================================
 
 const UA =
@@ -75,6 +75,64 @@ function imgSrc(u) {
         u = u.replace(/\?.*/, '')
     }
     return u
+}
+
+// ---------- 封面图 AES-128-CBC 解密 ----------
+// 站点封面图是 AES-128-CBC 加密字节，key/iv 取自站点前端 crypto-worker.js
+// key = f5d965df75336270 (ASCII 16 bytes)  iv = 97b60394abc2fbe1 (ASCII 16 bytes)
+// 解密后转 base64 data URI (v1.5.40+ vod_pic 支持 data URI)
+const PIC_KEY = 'f5d965df75336270'
+const PIC_IV = '97b60394abc2fbe1'
+
+// 批量并行解密列表中所有 vod_pic
+async function decryptPicBatch(list) {
+    var tasks = []
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].vod_pic) {
+            tasks.push((async function (idx) {
+                list[idx].vod_pic = await decryptPic(list[idx].vod_pic)
+            })(i))
+        }
+    }
+    await Promise.all(tasks)
+}
+
+async function decryptPic(url) {
+    if (!url || url.indexOf('data:') === 0) return url
+    try {
+        var pro = await req(url, {
+            headers: { 'User-Agent': UA, Referer: SITE + '/' },
+            responseType: 'arraybuffer',
+        })
+        if (!pro || !pro.data) return url
+        var raw = pro.data instanceof Uint8Array ? pro.data : new Uint8Array(pro.data)
+        // 未加密图片直接返回原 URL
+        if (raw[0] === 0xff && raw[1] === 0xd8) return url
+        if (raw[0] === 0x89 && raw[1] === 0x50) return url
+        var key = Crypto.enc.Utf8.parse(PIC_KEY)
+        var iv = Crypto.enc.Utf8.parse(PIC_IV)
+        var wa = Crypto.lib.WordArray.create(raw)
+        var dec = Crypto.AES.decrypt(
+            Crypto.lib.CipherParams.create({ ciphertext: wa }),
+            key,
+            { iv: iv, mode: Crypto.mode.CBC, padding: Crypto.pad.NoPadding }
+        )
+        // 找 JPEG 结束标记 FFD9 截断尾部填充
+        var words = dec.words
+        var n = dec.sigBytes
+        var end = n
+        for (var i = n - 2; i >= 0; i--) {
+            var b0 = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff
+            var b1 = (words[(i + 1) >>> 2] >>> (24 - ((i + 1) % 4) * 8)) & 0xff
+            if (b0 === 0xff && b1 === 0xd9) { end = i + 2; break }
+        }
+        dec.sigBytes = end
+        var firstByte = (words[0] >>> 24) & 0xff
+        var mime = firstByte === 0x89 ? 'image/png' : 'image/jpeg'
+        return 'data:' + mime + ';base64,' + dec.toString(Crypto.enc.Base64)
+    } catch (e) {
+        return url
+    }
 }
 
 function stripTags(s) {
@@ -270,6 +328,7 @@ async function getVideoList(args) {
             vd.vod_remarks = c.vod_remarks
             list.push(vd)
         }
+        await decryptPicBatch(list)
         backData.data = list
     } catch (e) {
         backData.error = e.toString()
@@ -310,7 +369,7 @@ async function getVideoDetail(args) {
 
         // 解析封面
         var imgM = html.match(/hg-web-detail__cover[^>]*>[\s\S]*?data-src="([^"]+)"/) || html.match(/hg-web-detail__cover[^>]*>[\s\S]*?src="([^"]+)"/) || html.match(/data-src="([^"]+)"/)
-        det.vod_pic = imgSrc(imgM ? imgM[1] : '')
+        det.vod_pic = await decryptPic(imgSrc(imgM ? imgM[1] : ''))
 
         // 解析简介
         var descM = html.match(/hg-web-detail__desc[^>]*>([\s\S]*?)<\/div>/)
