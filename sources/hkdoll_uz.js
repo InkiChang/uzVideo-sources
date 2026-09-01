@@ -14,8 +14,8 @@
 
 // ---------- XPTV 兼容层 (polyfill) ----------
 
-const $$cheerio = cheerio;
-const $$crypto = Crypto;
+const $$cheerio = createCheerio();
+const $$crypto = createCryptoJS();
 
 const $fetch = {
     async get(url, options) {
@@ -77,8 +77,20 @@ function argsify(jsonStr) {
 
 function jsonify(obj) { return JSON.stringify(obj); }
 
-function createCheerio() { return $$cheerio; }
-function createCryptoJS() { return $$crypto; }
+// createCheerio/createCryptoJS 由 uzVideo 运行时提供，不在此定义
+
+// loadJSEncrypt - XPTV runtime, uzVideo may not provide
+function loadJSEncrypt() {
+    return {
+        setPublicKey(k) { this._pub = k; },
+        setPrivateKey(k) { this._priv = k; },
+        encrypt(t) { return t; },
+        decrypt(t) { return t; },
+    };
+}
+
+// $config_str - XPTV runtime config variable (usually empty in uzVideo context)
+const $config_str = '';
 
 // ---------- 原始 XPTV 代码 ----------
 
@@ -418,12 +430,10 @@ async function getVideoPlayUrl(args) {
         var result = await getPlayinfo(xptvArgs);
         var parsed = typeof result === 'string' ? JSON.parse(result) : result;
         if (parsed.urls && parsed.urls.length > 0) {
-            for (var i = 0; i < parsed.urls.length; i++) {
-                backData.urls.push({
-                    url: parsed.urls[i],
-                    headers: parsed.headers || [],
-                });
-            }
+            backData.data = {
+                url: parsed.urls[0],
+                header: parsed.headers || {},
+            };
         }
     } catch (e) { backData.error = e.toString(); }
     return JSON.stringify(backData);
