@@ -30,6 +30,15 @@
       "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/ylys_uz.js",
       "type": 101,
       "order": "C"
+    },
+    {
+      "name": "avdb",
+      "version": 1,
+      "remark": "移植自 XPTV avdb.js (avdbapi.com)，MacCMS JSON API源",
+      "webSite": "https://avdbapi.com",
+      "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/avdb_uz.js",
+      "type": 101,
+      "order": "C"
     }
   ]
 }
