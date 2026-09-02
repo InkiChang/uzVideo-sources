@@ -9,6 +9,8 @@
 | 黄果短剧 | HTML刮削 | XPTV | ✅可用 | 2026-09-02 |
 | 七色番 | HTML刮削 | XPTV | ✅可用 | 2026-09-02 |
 | 永乐影视 | HTML刮削 | XPTV | ⚠️待测 | - |
+| avdb | JSON API | XPTV | ✅可用 | 2026-09-02 |
+| 燒火電影 | HTML刮削 | XPTV | ⚠️待测 | - |
 
 > 状态说明：✅可用 / ⚠️待测 / ❌失效
 
@@ -23,6 +25,9 @@
 |------|------|---------|
 | 黄果短剧 | [sources/huangguo.js](sources/huangguo.js) | `https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/huangguo.js` |
 | 七色番 | [sources/7sefun_uz.js](sources/7sefun_uz.js) | `https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/7sefun_uz.js` |
+| 永乐影视 | [sources/ylys_uz.js](sources/ylys_uz.js) | `https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/ylys_uz.js` |
+| avdb | [sources/avdb_uz.js](sources/avdb_uz.js) | `https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/avdb_uz.js` |
+| 燒火電影 | [sources/saohuo_uz.js](sources/saohuo_uz.js) | `https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/saohuo_uz.js` |
 
 ### 方式二：聚合订阅导入
 

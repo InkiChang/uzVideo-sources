@@ -39,6 +39,15 @@
       "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/avdb_uz.js",
       "type": 101,
       "order": "C"
+    },
+    {
+      "name": "燒火電影",
+      "version": 1,
+      "remark": "移植自 XPTV saohuo.js (shdy2.com)，HTML刮削源",
+      "webSite": "https://shdy2.com",
+      "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/saohuo_uz.js",
+      "type": 101,
+      "order": "C"
     }
   ]
 }
