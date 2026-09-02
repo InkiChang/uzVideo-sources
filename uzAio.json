@@ -24,7 +24,12 @@
     },
     {
       "name": "永乐影视",
-      "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/ylys_uz.js"
+      "version": 1,
+      "remark": "移植自 XPTV ylys.js (ylys.tv)，MacCMS HTML刮削源",
+      "webSite": "https://www.ylys.tv",
+      "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/ylys_uz.js",
+      "type": 101,
+      "order": "C"
     }
   ]
 }
