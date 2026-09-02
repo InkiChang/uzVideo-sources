@@ -48,15 +48,6 @@
             "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/saohuo_uz.js",
             "type": 101,
             "order": "C"
-        },
-        {
-            "name": "NO視頻",
-            "version": 1,
-            "remark": "移植自 XPTV novipnoad.js (novipnoad.net)，HTML刮削源+RC4解密",
-            "webSite": "https://www.novipnoad.net",
-            "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/novipnoad_uz.js",
-            "type": 101,
-            "order": "C"
         }
     ]
 }
