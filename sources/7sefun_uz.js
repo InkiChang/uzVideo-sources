@@ -628,6 +628,7 @@ async function getVideoDetail(args) {
         // 格式: 线路1$集1$URL1#集2$URL2#$$$线路2$集1$URL1#
         // uzVideo 用 $$$ 分隔多线路
         var lines = []
+        var froms = []
         for (var i = 0; i < lists.length; i++) {
             var line = lists[i]
             var lineName = line.title || ('线路' + (i + 1))
@@ -642,14 +643,15 @@ async function getVideoDetail(args) {
                 }
             }
             if (eps.length > 0) {
-                lines.push(lineName + '$' + eps.join('#'))
+                lines.push(eps.join('#'))
+                froms.push(lineName)
             }
         }
 
         var det = new VideoDetail()
         det.vod_id = url
         det.vod_play_url = lines.join('$$$')
-        det.vod_play_from = lists.map(function(l) { return l.title || '线路' }).join('$$$')
+        det.vod_play_from = froms.join('$$$')
 
         backData.data = det
     } catch (e) {
