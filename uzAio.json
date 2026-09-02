@@ -12,15 +12,6 @@
       "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/huangguo_uz.js",
       "type": 101,
       "order": "C"
-    },
-    {
-      "name": "NO視頻",
-      "version": 1,
-      "remark": "移植自 XPTV novipnoad.js",
-      "webSite": "https://www.novipnoad.net",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/novipnoad_uz.js",
-      "type": 101,
-      "order": "C"
     }
   ]
 }

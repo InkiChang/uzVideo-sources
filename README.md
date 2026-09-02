@@ -7,7 +7,6 @@
 | 源名 | 类型 | 来源 | 状态 | 最后验证 |
 |------|------|------|------|---------|
 | 黄果短剧 | HTML刮削 | XPTV | ⚠️待测 | - |
-| NO視頻 | HTML刮削+浏览器模拟 | XPTV | ⚠️待测 | - |
 
 > 状态说明：✅可用 / ⚠️待测 / ❌失效
 
@@ -21,7 +20,6 @@
 | 源名 | 文件 | Raw URL |
 |------|------|---------|
 | 黄果短剧 | [sources/huangguo_uz.js](sources/huangguo_uz.js) | `https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/huangguo_uz.js` |
-| NO視頻 | [sources/novipnoad_uz.js](sources/novipnoad_uz.js) | `https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/novipnoad_uz.js` |
 
 ### 方式二：聚合订阅导入
 
