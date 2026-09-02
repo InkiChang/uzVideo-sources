@@ -12,6 +12,15 @@
       "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/huangguo.js",
       "type": 101,
       "order": "C"
+    },
+    {
+      "name": "七色番",
+      "version": 1,
+      "remark": "移植自 XPTV 7sefun.js (7sefun.top)，HTML刮削源",
+      "webSite": "https://www.7sefun.top",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/7sefun_uz.js",
+      "type": 101,
+      "order": "C"
     }
   ]
 }

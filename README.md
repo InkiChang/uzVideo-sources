@@ -7,6 +7,7 @@
 | 源名 | 类型 | 来源 | 状态 | 最后验证 |
 |------|------|------|------|---------|
 | 黄果短剧 | HTML刮削 | XPTV | ⚠️待测 | - |
+| 七色番 | HTML刮削 | XPTV | ⚠️待测 | - |
 
 > 状态说明：✅可用 / ⚠️待测 / ❌失效
 
@@ -20,6 +21,7 @@
 | 源名 | 文件 | Raw URL |
 |------|------|---------|
 | 黄果短剧 | [sources/huangguo.js](sources/huangguo.js) | `https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/huangguo.js` |
+| 七色番 | [sources/7sefun_uz.js](sources/7sefun_uz.js) | `https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/7sefun_uz.js` |
 
 ### 方式二：聚合订阅导入
 
