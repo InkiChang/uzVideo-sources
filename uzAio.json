@@ -21,6 +21,10 @@
       "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/7sefun_uz.js",
       "type": 101,
       "order": "C"
+    },
+    {
+      "name": "永乐影视",
+      "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/ylys_uz.js"
     }
   ]
 }
