@@ -1,155 +1,31 @@
 // ignore
-//@name:未知源
+//@name:黄果短剧
 //@version:1
-//@webSite:
-//@remark:移植自 XPTV huangguo.js
+//@webSite:https://huangguoai.com
+//@remark:移植自 XPTV huangguo.js (huangguoai.com)，HTML刮削源
 //@type:101
+//@order: C
 // ignore
 
 // ============================================================
-// uzVideo 扩展 - 自动转换自 XPTV huangguo.js
-// 转换工具: tools/convert_xptv.py
-// 原理: XPTV兼容shim + uzVideo wrapper
-// ============================================================
-
-// ---------- XPTV 兼容层 (polyfill) ----------
-
-const $$cheerio = createCheerio();
-const $$crypto = createCryptoJS();
-
-const $fetch = {
-    async get(url, options) {
-        const resp = await req(url, options || {});
-        return { data: resp.data, headers: resp.headers, code: resp.code };
-    },
-    async post(url, body, options) {
-        const opts = options || {};
-        opts.method = 'POST';
-        if (body !== undefined) opts.body = body;
-        const resp = await req(url, opts);
-        return { data: resp.data, headers: resp.headers, code: resp.code };
-    },
-    async download(url, options) {
-        const opts = options || {};
-        opts.responseType = 'arraybuffer';
-        const resp = await req(url, opts);
-        return { data: resp.data, headers: resp.headers, code: resp.code };
-    },
-};
-
-const $html = {
-    elements(html, selector) {
-        if (!html) return [];
-        const $ = $$cheerio.load(html);
-        const out = [];
-        $(selector).each(function (i, el) {
-            out.push($(el).toString());
-        });
-        return out;
-    },
-    attr(html, selector, attrName) {
-        if (!html) return '';
-        const $ = $$cheerio.load(html);
-        const v = $(selector).attr(attrName);
-        return v || '';
-    },
-    text(html, selector) {
-        if (!html) return '';
-        const $ = $$cheerio.load(html);
-        return $(selector).text().trim();
-    },
-};
-
-const $$cacheStore = {};
-const $cache = {
-    get(key) { return $$cacheStore[key]; },
-    set(key, value) { $$cacheStore[key] = value; },
-};
-
-const $print = console.log;
-
-function argsify(jsonStr) {
-    try {
-        if (typeof jsonStr === 'object') return jsonStr;
-        return JSONbig.parse(jsonStr);
-    } catch (e) { return {}; }
-}
-
-function jsonify(obj) { return JSON.stringify(obj); }
-
-// createCheerio/createCryptoJS 由 uzVideo 运行时提供，不在此定义
-
-// loadJSEncrypt - XPTV runtime, uzVideo may not provide
-function loadJSEncrypt() {
-    return {
-        setPublicKey(k) { this._pub = k; },
-        setPrivateKey(k) { this._priv = k; },
-        encrypt(t) { return t; },
-        decrypt(t) { return t; },
-    };
-}
-
-// $config_str - XPTV runtime config variable (usually empty in uzVideo context)
-const $config_str = '';
-
-// ---------- 原始 XPTV 代码 ----------
-
-// 黄果短剧 huangguoai.com
-// HTML 刮削源：首頁/分類/搜尋皆為 .hg-card-grid > .hg-drama-card 卡片；
-// 排行榜為 .hg-rank-list > .hg-rank-item；詳情頁 .hg-web-detail__ep-grid 給集數；
-// 播放頁 <script id="videoInitialData"> 內嵌 JSON，epPlaySrcs[集數] / videoSrc 直接給 m3u8。
-// 圖片解密方法：
-//   站點封面圖是 AES-128-CBC 加密位元組，key/iv 取自站點前端 crypto-worker.js：
-//     key = f5d965df75336270  (hex)  iv = 97b60394abc2fbe1  (hex)  均為 UTF-8 16 bytes
-//   解密流程（AES.new(key, MODE_CBC, iv).decrypt(raw)）：
-//     a. raw 為空或 len%16 != 0 → 原樣回傳
-//     b. 解密後若开頭不是圖片簽名 → 源圖根本沒加密，原樣回傳
-//        （合法簽名：JPEG \xff\xd8 / PNG \x89PNG\r\n\x1a\n / WEBP RIFF\x00\x00\x00WEBP / GIF87a|GIF89a）
-//     c. 剝離 PKCS7 padding（末字節 pad，1<=pad<=16 且末 pad 字節同值）
-//     d. 收尾截斷：JPEG 留到最後一個 \xff\xd9；PNG 留到 IEND 的 +8 bytes
-//   不足 16 或未加密 → 原樣輸出。故 XPTV 端無解密能力，vod_pic 直接放剝掉 auth_key 的原始 URL，
-//   加密圖位元組的解密代理由 XPTV 外部（本地代理層）負責。
-
-// 圖片解密（CryptoJS 寫法）
-//   站點封面圖為 AES-128-CBC 加密位元組，key/iv 取自前端 crypto-worker.js 的 UTF-8 16 bytes：
-//     key = f5d965df75336270   iv = 97b60394abc2fbe1
-//   密文 raw 需先轉 CryptoJS WordArray（圖片響應位元組），非加密或長度非 16 倍數 → 原樣回傳：
+// 黄果短剧 uzVideo 扩展
+// 移植自 XPTV xptv-extensions/js/huangguo.js
+// 站点: huangguoai.com  (HTML 刮削，非苹果CMS接口)
 //
-//   const _IMG_KEY = CryptoJS.enc.Hex.parse('f5d965df75336270');
-//   const _IMG_IV  = CryptoJS.enc.Hex.parse('97b60394abc2fbe1');
-//   function decryptImg(raw) {
-//     if (!raw || raw.sigBytes % 16 !== 0) return raw;
-//     let pt;
-//     try {
-//       pt = CryptoJS.AES.decrypt(
-//         { ciphertext: raw }, _IMG_KEY,
-//         { iv: _IMG_IV, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.NoPadding });
-//     } catch (e) { return raw; }
-//     let hex = CryptoJS.enc.Hex.stringify(pt).toLowerCase();
-//     // 開頭若不是圖片簽名 → 源圖根本沒加密，原樣回傳（JPEG/PNG/WEBP/GIF）
-//     if (!(hex.indexOf('ffd8') === 0 || hex.indexOf('89504e470d0a1a0a') === 0 ||
-//           (hex.indexOf('52494646') === 0 && hex.indexOf('57454250') === 8) ||
-//           hex.indexOf('47494638') === 0)) return raw;
-//     // 剝離 PKCS7 padding（末字節 pad，1<=pad<=16 且末 pad 字節同值）
-//     const pad = parseInt(hex.slice(-2), 16);
-//     if (pad > 0 && pad <= 16) {
-//       const b = pad.toString(16).padStart(2, '0');
-//       let ok = true;
-//       for (let i = hex.length - pad * 2; i < hex.length; i += 2)
-//         if (hex.slice(i, i + 2) !== b) { ok = false; break; }
-//       if (ok) { hex = hex.slice(0, -pad * 2); }
-//     }
-//     // 收尾截斷：JPEG 留到最後 \xff\xd9；PNG 留到 IEND 的 +8 bytes（\x89PNG...IEND）
-//     let i = hex.lastIndexOf('ffd9');
-//     if (i !== -1) hex = hex.slice(0, i + 4);
-//     else { i = hex.lastIndexOf('49454e44ae426082'); if (i !== -1) hex = hex.slice(0, i + 16); }
-//     return CryptoJS.lib.WordArray.create(CryptoJS.enc.Hex.parse(hex).words, hex.length / 2);
-//   }
+// 接口映射:
+//   XPTV getConfig()        → getClassList()    (一级分类 = TABS)
+//   XPTV getCards(ext)      → getVideoList()    (分类视频列表)
+//   XPTV getTracks(ext)     → getVideoDetail()  (详情+集数 → vod_play_url)
+//   XPTV getPlayinfo(ext)   → getVideoPlayUrl() (提取 m3u8)
+//   XPTV search(ext)        → searchVideo()
+//
+// 封面: 站点封面为 AES-128-CBC 加密，使用 uzVideo 内置 CryptoJS 解密
+//       解密后转 base64 data URI 赋给 vod_pic (v1.5.40+ 支持 data URI)
+// ============================================================
 
 const UA =
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 const SITE = 'https://huangguoai.com'
-
 const HEADERS = {
     'User-Agent': UA,
     Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -157,6 +33,24 @@ const HEADERS = {
     Referer: SITE + '/',
 }
 
+const appConfig = {
+    _webSite: '',
+    get webSite() {
+        return this._webSite
+    },
+    set webSite(value) {
+        this._webSite = value
+    },
+    _uzTag: '',
+    get uzTag() {
+        return this._uzTag
+    },
+    set uzTag(value) {
+        this._uzTag = value
+    },
+}
+
+// ---------- 一级分类 (对应 XPTV TABS) ----------
 const TABS = [
     { name: '首页', id: 'home' },
     { name: 'AI成人短剧', id: 'ai-duanju' },
@@ -166,7 +60,7 @@ const TABS = [
     { name: '排行榜', id: 'ranks/hot' },
 ]
 
-// ---------- 工具 ----------
+// ---------- 工具函数 ----------
 function fix(u) {
     if (!u) return ''
     if (u.indexOf('//') === 0) return 'https:' + u
@@ -183,6 +77,64 @@ function imgSrc(u) {
     return u
 }
 
+// ---------- 封面图 AES-128-CBC 解密 ----------
+// 站点封面图是 AES-128-CBC 加密字节，key/iv 取自站点前端 crypto-worker.js
+// key = f5d965df75336270 (ASCII 16 bytes)  iv = 97b60394abc2fbe1 (ASCII 16 bytes)
+// 解密后转 base64 data URI (v1.5.40+ vod_pic 支持 data URI)
+const PIC_KEY = 'f5d965df75336270'
+const PIC_IV = '97b60394abc2fbe1'
+
+// 批量并行解密列表中所有 vod_pic
+async function decryptPicBatch(list) {
+    var tasks = []
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].vod_pic) {
+            tasks.push((async function (idx) {
+                list[idx].vod_pic = await decryptPic(list[idx].vod_pic)
+            })(i))
+        }
+    }
+    await Promise.all(tasks)
+}
+
+async function decryptPic(url) {
+    if (!url || url.indexOf('data:') === 0) return url
+    try {
+        var pro = await req(url, {
+            headers: { 'User-Agent': UA, Referer: SITE + '/' },
+            responseType: 'arraybuffer',
+        })
+        if (!pro || !pro.data) return url
+        var raw = pro.data instanceof Uint8Array ? pro.data : new Uint8Array(pro.data)
+        // 未加密图片直接返回原 URL
+        if (raw[0] === 0xff && raw[1] === 0xd8) return url
+        if (raw[0] === 0x89 && raw[1] === 0x50) return url
+        var key = Crypto.enc.Utf8.parse(PIC_KEY)
+        var iv = Crypto.enc.Utf8.parse(PIC_IV)
+        var wa = Crypto.lib.WordArray.create(raw)
+        var dec = Crypto.AES.decrypt(
+            Crypto.lib.CipherParams.create({ ciphertext: wa }),
+            key,
+            { iv: iv, mode: Crypto.mode.CBC, padding: Crypto.pad.NoPadding }
+        )
+        // 找 JPEG 结束标记 FFD9 截断尾部填充
+        var words = dec.words
+        var n = dec.sigBytes
+        var end = n
+        for (var i = n - 2; i >= 0; i--) {
+            var b0 = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff
+            var b1 = (words[(i + 1) >>> 2] >>> (24 - ((i + 1) % 4) * 8)) & 0xff
+            if (b0 === 0xff && b1 === 0xd9) { end = i + 2; break }
+        }
+        dec.sigBytes = end
+        var firstByte = (words[0] >>> 24) & 0xff
+        var mime = firstByte === 0x89 ? 'image/png' : 'image/jpeg'
+        return 'data:' + mime + ';base64,' + dec.toString(Crypto.enc.Base64)
+    } catch (e) {
+        return url
+    }
+}
+
 function stripTags(s) {
     return String(s || '')
         .replace(/<[^>]*>/g, '')
@@ -191,14 +143,13 @@ function stripTags(s) {
 
 async function fetchHtml(url, referer) {
     const headers = referer ? Object.assign({}, HEADERS, { Referer: referer }) : HEADERS
-    const resp = await $fetch.get(url, { headers })
-    const data = resp && resp.data
+    const pro = await req(url, { headers: headers })
+    const data = pro && pro.data
     return typeof data === 'string' ? data : data == null ? '' : JSON.stringify(data)
 }
 
-// ---------- 卡片解析 ----------
+// ---------- 卡片解析 (首页/分类/搜索) ----------
 function gridSlices(html, allGrids) {
-    // .hg-card-grid 區塊；allGrids=true 取全部，否則只取第一個（主列表）
     const re = /<div\s+class="[^"]*\bhg-card-grid\b[^"]*"[^>]*>/g
     const starts = []
     let m
@@ -251,7 +202,6 @@ function parseCardBlock(block) {
         vod_name: title,
         vod_pic: imgSrc(imgM ? imgM[1] : ''),
         vod_remarks: remarks,
-        ext: { id: vid },
     }
 }
 
@@ -259,8 +209,7 @@ function parseGridCards(html, allGrids) {
     if (!html) return []
     const list = []
     const seen = {}
-    const slices = gridSlices(html, allGrids)
-    for (const slice of slices) {
+    for (const slice of gridSlices(html, allGrids)) {
         for (const block of cardBlocks(slice)) {
             try {
                 const item = parseCardBlock(block)
@@ -307,274 +256,237 @@ function parseRanks(html) {
                 vod_name: title,
                 vod_pic: imgSrc(imgM ? imgM[1] : ''),
                 vod_remarks: tags ? stripTags(tags[1]) : '',
-                ext: { id: a[1] },
             })
         } catch (e) {}
     }
     return list
 }
 
-// ---------- 介面 ----------
-async function getLocalInfo() {
-    return jsonify({ ver: 1, name: '黄果短剧', api: 'csp_huangguo', type: 3 })
-}
+// ============================================================
+// uzVideo 扩展接口实现
+// ============================================================
 
-async function getConfig() {
-    return jsonify({
-        ver: 1,
-        title: '黄果短剧',
-        site: SITE,
-        tabs: TABS.map((t) => ({ name: t.name, ext: { id: t.id } })),
-    })
-}
-
-async function getCards(ext) {
-    ext = argsify(ext)
-    const id = String(ext.id || 'home').replace(/^\//, '')
-    const page = Math.max(1, parseInt(ext.page) || 1)
+/**
+ * 获取一级分类列表 (对应 XPTV getConfig → TABS)
+ */
+async function getClassList(args) {
+    var backData = new RepVideoClassList()
     try {
+        var list = []
+        for (var i = 0; i < TABS.length; i++) {
+            var vc = new VideoClass()
+            vc.type_id = TABS[i].id
+            vc.type_name = TABS[i].name
+            vc.hasSubclass = false
+            list.push(vc)
+        }
+        backData.data = list
+    } catch (e) {
+        backData.error = e.toString()
+    }
+    return JSON.stringify(backData)
+}
+
+/**
+ * 获取二级分类列表 (本源无二级分类，返回空)
+ */
+async function getSubclassList(args) {
+    var backData = new RepVideoSubclassList()
+    return JSON.stringify(backData)
+}
+
+/**
+ * 获取分类视频列表 (对应 XPTV getCards)
+ * args.url = 一级分类 type_id (home / ai-duanju / ranks/hot 等)
+ * args.page = 页码
+ */
+async function getVideoList(args) {
+    var backData = new RepVideoList()
+    try {
+        var id = String(args.url || 'home').replace(/^\//, '')
+        var page = Math.max(1, parseInt(args.page) || 1)
+        var html, cards
         if (id === 'home') {
-            const html = await fetchHtml(SITE + '/')
-            return jsonify({ list: parseGridCards(html, true), page: page })
+            html = await fetchHtml(SITE + '/')
+            cards = parseGridCards(html, true)
+        } else {
+            var url = SITE + '/' + id + '/' + (page > 1 ? page + '/' : '')
+            html = await fetchHtml(url)
+            if (id.indexOf('rank') !== -1) {
+                cards = parseRanks(html)
+            } else {
+                cards = parseGridCards(html, false)
+            }
         }
-        const url = SITE + '/' + id + '/' + (page > 1 ? page + '/' : '')
-        const html = await fetchHtml(url)
-        if (id.indexOf('rank') !== -1) {
-            return jsonify({ list: parseRanks(html), page: page })
+        var list = []
+        for (var i = 0; i < cards.length; i++) {
+            var c = cards[i]
+            var vd = new VideoDetail()
+            vd.vod_id = c.vod_id
+            vd.vod_name = c.vod_name
+            vd.vod_pic = c.vod_pic
+            vd.vod_remarks = c.vod_remarks
+            list.push(vd)
         }
-        return jsonify({ list: parseGridCards(html, false), page: page })
+        await decryptPicBatch(list)
+        backData.data = list
     } catch (e) {
-        console.error('getCards error:', e)
-        return jsonify({ list: [], page: page })
+        backData.error = e.toString()
     }
+    return JSON.stringify(backData)
 }
 
-async function getTracks(ext) {
-    ext = argsify(ext)
-    const id = ext.id || ''
-    if (!id) return jsonify({ list: [] })
+/**
+ * 获取二级分类视频列表 (本源无二级分类，同 getVideoList)
+ */
+async function getSubclassVideoList(args) {
+    return await getVideoList(args)
+}
+
+/**
+ * 获取视频详情 (对应 XPTV getTracks)
+ * args.url = vod_id (视频ID)
+ * 返回 vod_play_url 格式: 第1集$播放页URL|集数#第2集$播放页URL|集数#
+ *   - $ 分割集名和URL
+ *   - | 分割URL和集数 (传给 getVideoPlayUrl 解析)
+ *   - # 分割各集
+ */
+async function getVideoDetail(args) {
+    var backData = new RepVideoDetail()
     try {
-        const html = await fetchHtml(SITE + '/detail/' + id + '/')
-        const tracks = []
-        const gridM = html.match(/<div\s+class="[^"]*\bhg-web-detail__ep-grid\b[^"]*"[^>]*>([\s\S]*?)<\/div>/)
+        var id = String(args.url || '')
+        if (!id) {
+            backData.error = '缺少视频ID'
+            return JSON.stringify(backData)
+        }
+        var html = await fetchHtml(SITE + '/detail/' + id + '/')
+        var det = new VideoDetail()
+        det.vod_id = id
+
+        // 解析标题
+        var titleM = html.match(/hg-web-detail__title[^>]*>([\s\S]*?)<\/h1>/) || html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)
+        det.vod_name = titleM ? stripTags(titleM[1]) : id
+
+        // 解析封面
+        var imgM = html.match(/hg-web-detail__cover[^>]*>[\s\S]*?data-src="([^"]+)"/) || html.match(/hg-web-detail__cover[^>]*>[\s\S]*?src="([^"]+)"/) || html.match(/data-src="([^"]+)"/)
+        det.vod_pic = await decryptPic(imgSrc(imgM ? imgM[1] : ''))
+
+        // 解析简介
+        var descM = html.match(/hg-web-detail__desc[^>]*>([\s\S]*?)<\/div>/)
+        det.vod_content = descM ? stripTags(descM[1]) : ''
+
+        // 解析集数列表
+        var tracks = []
+        var gridM = html.match(/<div\s+class="[^"]*\bhg-web-detail__ep-grid\b[^"]*"[^>]*>([\s\S]*?)<\/div>/)
         if (gridM) {
-            const are = /<a\b[^>]*>[\s\S]*?<\/a>/g
-            let m
+            var are = /<a\b[^>]*>[\s\S]*?<\/a>/g
+            var m
             while ((m = are.exec(gridM[1])) !== null) {
-                const tag = m[0]
-                const hrefM = tag.match(/href="([^"]+)"/)
+                var tag = m[0]
+                var hrefM = tag.match(/href="([^"]+)"/)
                 if (!hrefM) continue
-                const href = hrefM[1]
-                const eidM = tag.match(/data-ep-id="([^"]*)"/)
-                const eid = eidM ? eidM[1] : ''
-                const name = eid ? '第' + eid + '集' : stripTags(tag)
-                tracks.push({ name: name, ext: { url: fix(href), ep: eid } })
+                var href = hrefM[1]
+                var eidM = tag.match(/data-ep-id="([^"]*)"/)
+                var eid = eidM ? eidM[1] : ''
+                var name = eid ? '第' + eid + '集' : stripTags(tag)
+                tracks.push({ name: name, url: fix(href) + '|' + eid })
             }
         }
+        // 无集数列表时尝试播放按钮
         if (!tracks.length) {
-            const playM = html.match(/<a\b[^>]*class="[^"]*\bhg-web-detail__play\b[^"]*"[^>]*href="([^"]+)"/)
+            var playM = html.match(/<a\b[^>]*class="[^"]*\bhg-web-detail__play\b[^"]*"[^>]*href="([^"]+)"/)
             if (playM) {
-                tracks.push({ name: '第1集', ext: { url: fix(playM[1]), ep: '' } })
+                tracks.push({ name: '第1集', url: fix(playM[1]) + '|1' })
             }
         }
-        if (!tracks.length) return jsonify({ list: [] })
-        return jsonify({ list: [{ title: '黄果短剧', tracks: tracks }] })
+
+        // 构建 vod_play_url
+        var vod_play_url = ''
+        for (var i = 0; i < tracks.length; i++) {
+            vod_play_url += tracks[i].name + '$' + tracks[i].url + '#'
+        }
+        det.vod_play_url = vod_play_url
+        det.vod_play_from = '黄果短剧'
+
+        backData.data = det
     } catch (e) {
-        console.error('getTracks error:', e)
-        return jsonify({ list: [] })
+        backData.error = e.toString()
     }
+    return JSON.stringify(backData)
 }
 
-async function getPlayinfo(ext) {
-    ext = argsify(ext)
-    const url = ext.url || ''
-    const ep = String(ext.ep || '1')
-    if (!url) return jsonify({ urls: [] })
+/**
+ * 获取播放地址 (对应 XPTV getPlayinfo)
+ * args.url = 播放页URL|集数  (由 vod_play_url 传入)
+ * 抓取播放页 <script id="videoInitialData"> 内嵌 JSON，提取 epPlaySrcs[集数] 或 videoSrc
+ */
+async function getVideoPlayUrl(args) {
+    var backData = new RepVideoPlayUrl()
     try {
-        const html = await fetchHtml(url, SITE)
-        let play = ''
-        const m = html.match(/id="videoInitialData"[^>]*>([\s\S]*?)<\/script>/)
+        var raw = String(args.url || '')
+        var parts = raw.split('|')
+        var url = parts[0]
+        var ep = String(parts[1] || '1')
+        if (!url) {
+            backData.error = '缺少播放URL'
+            return JSON.stringify(backData)
+        }
+        var html = await fetchHtml(url, SITE)
+        var play = ''
+        var m = html.match(/id="videoInitialData"[^>]*>([\s\S]*?)<\/script>/)
         if (m) {
             try {
-                const data = JSON.parse(m[1])
-                const srcs = (data && data.epPlaySrcs) || {}
+                var data = JSON.parse(m[1])
+                var srcs = (data && data.epPlaySrcs) || {}
                 play = srcs[ep] || (data && data.videoSrc) || ''
             } catch (e) {}
         }
         if (play) {
             play = play.replace(/\\u0026/g, '&')
             if (play.indexOf('http') !== 0) {
-                const mm = play.match(/(https?:\/\/[^\s"']+)/)
+                var mm = play.match(/(https?:\/\/[^\s"']+)/)
                 play = mm ? mm[1] : ''
             }
         }
-        if (!play) return jsonify({ urls: [] })
-        return jsonify({
-            urls: [play],
-            headers: [{ 'User-Agent': UA, Referer: SITE + '/' }],
-        })
+        if (!play) {
+            backData.error = '未找到播放地址'
+            return JSON.stringify(backData)
+        }
+        backData.data = play
+        backData.headers = {
+            'User-Agent': UA,
+            Referer: SITE + '/',
+        }
     } catch (e) {
-        console.error('getPlayinfo error:', e)
-        return jsonify({ urls: [] })
+        backData.error = e.toString()
     }
+    return JSON.stringify(backData)
 }
 
-async function search(ext) {
-    ext = argsify(ext)
-    const kw = String(ext.text || ext.wd || '').trim()
-    if (!kw) return jsonify({ list: [], page: 1 })
-    try {
-        const html = await fetchHtml(SITE + '/search/video/' + encodeURIComponent(kw) + '/')
-        return jsonify({ list: parseGridCards(html, false), page: 1 })
-    } catch (e) {
-        console.error('search error:', e)
-        return jsonify({ list: [], page: 1 })
-    }
-}
-
-
-// ============================================================
-// uzVideo 扩展接口适配层 (wrapper)
-// ============================================================
-
-async function getClassList(args) {
-    var backData = new RepVideoClassList();
-    try {
-        var config = await getConfig();
-        var cfg = typeof config === 'string' ? JSON.parse(config) : config;
-        var list = [];
-        var tabs = cfg.tabs || [];
-        for (var i = 0; i < tabs.length; i++) {
-            var vc = new VideoClass();
-            vc.type_id = String(tabs[i].id || tabs[i].name || i);
-            vc.type_name = String(tabs[i].name || tabs[i].id || '');
-            vc.hasSubclass = false;
-            list.push(vc);
-        }
-        backData.data = list;
-    } catch (e) { backData.error = e.toString(); }
-    return JSON.stringify(backData);
-}
-
-async function getSubclassList(args) {
-    var backData = new RepVideoSubclassList();
-    try { backData.data = new VideoSubclass(); }
-    catch (e) { backData.error = e.toString(); }
-    return JSON.stringify(backData);
-}
-
-async function getVideoList(args) {
-    var backData = new RepVideoList();
-    try {
-        var xptvArgs = { url: args.url, page: args.page || 1 };
-        var result = await getCards(xptvArgs);
-        var parsed = typeof result === 'string' ? JSON.parse(result) : result;
-        var cards = parsed.list || [];
-        var list = [];
-        for (var i = 0; i < cards.length; i++) {
-            var c = cards[i];
-            var vd = new VideoDetail();
-            vd.vod_id = String(c.vod_id || '');
-            vd.vod_name = c.vod_name || '';
-            vd.vod_pic = c.vod_pic || '';
-            vd.vod_remarks = c.vod_remarks || '';
-            list.push(vd);
-        }
-        backData.data = list;
-        backData.total = list.length;
-    } catch (e) { backData.error = e.toString(); }
-    return JSON.stringify(backData);
-}
-
-async function getSubclassVideoList(args) {
-    var backData = new RepVideoList();
-    try {
-        var xptvArgs = { url: args.url, page: args.page || 1 };
-        var result = await getCards(xptvArgs);
-        var parsed = typeof result === 'string' ? JSON.parse(result) : result;
-        var cards = parsed.list || [];
-        var list = [];
-        for (var i = 0; i < cards.length; i++) {
-            var c = cards[i];
-            var vd = new VideoDetail();
-            vd.vod_id = String(c.vod_id || '');
-            vd.vod_name = c.vod_name || '';
-            vd.vod_pic = c.vod_pic || '';
-            vd.vod_remarks = c.vod_remarks || '';
-            list.push(vd);
-        }
-        backData.data = list;
-        backData.total = list.length;
-    } catch (e) { backData.error = e.toString(); }
-    return JSON.stringify(backData);
-}
-
-async function getVideoDetail(args) {
-    var backData = new RepVideoDetail();
-    try {
-        var xptvArgs = { url: args.url };
-        var result = await getTracks(xptvArgs);
-        var parsed = typeof result === 'string' ? JSON.parse(result) : result;
-        var groups = parsed.list || [];
-        var vd = new VideoDetail();
-        vd.vod_id = String(args.url);
-        var playFromParts = [];
-        var playUrlParts = [];
-        for (var g = 0; g < groups.length; g++) {
-            var group = groups[g];
-            playFromParts.push(group.title || ('线路' + (g + 1)));
-            var trackParts = [];
-            var tracks = group.tracks || [];
-            for (var t = 0; t < tracks.length; t++) {
-                var track = tracks[t];
-                var trackName = track.name || ('第' + (t + 1) + '集');
-                var trackUrl = track.url || track.playUrl || '';
-                trackParts.push(trackName + '$' + trackUrl);
-            }
-            playUrlParts.push(trackParts.join('#'));
-        }
-        vd.vod_play_from = playFromParts.join('$$$');
-        vd.vod_play_url = playUrlParts.join('$$$');
-        backData.data = vd;
-    } catch (e) { backData.error = e.toString(); }
-    return JSON.stringify(backData);
-}
-
-async function getVideoPlayUrl(args) {
-    var backData = new RepVideoPlayUrl();
-    try {
-        var xptvArgs = { url: args.url };
-        var result = await getPlayinfo(xptvArgs);
-        var parsed = typeof result === 'string' ? JSON.parse(result) : result;
-        if (parsed.urls && parsed.urls.length > 0) {
-            backData.data = {
-                url: parsed.urls[0],
-                header: parsed.headers || {},
-            };
-        }
-    } catch (e) { backData.error = e.toString(); }
-    return JSON.stringify(backData);
-}
-
+/**
+ * 搜索视频 (对应 XPTV search)
+ * args.searchWord = 搜索关键词
+ */
 async function searchVideo(args) {
-    var backData = new RepVideoList();
+    var backData = new RepVideoList()
     try {
-        var xptvArgs = { searchWord: args.searchWord, page: args.page || 1 };
-        var result = await search(xptvArgs);
-        var parsed = typeof result === 'string' ? JSON.parse(result) : result;
-        var cards = parsed.list || [];
-        var list = [];
+        var kw = String(args.searchWord || '').trim()
+        if (!kw) return JSON.stringify(backData)
+        var html = await fetchHtml(SITE + '/search/video/' + encodeURIComponent(kw) + '/')
+        var cards = parseGridCards(html, false)
+        var list = []
         for (var i = 0; i < cards.length; i++) {
-            var c = cards[i];
-            var vd = new VideoDetail();
-            vd.vod_id = String(c.vod_id || '');
-            vd.vod_name = c.vod_name || '';
-            vd.vod_pic = c.vod_pic || '';
-            vd.vod_remarks = c.vod_remarks || '';
-            list.push(vd);
+            var c = cards[i]
+            var vd = new VideoDetail()
+            vd.vod_id = c.vod_id
+            vd.vod_name = c.vod_name
+            vd.vod_pic = c.vod_pic
+            vd.vod_remarks = c.vod_remarks
+            list.push(vd)
         }
-        backData.data = list;
-        backData.total = list.length;
-    } catch (e) { backData.error = e.toString(); }
-    return JSON.stringify(backData);
+        backData.data = list
+    } catch (e) {
+        backData.error = e.toString()
+    }
+    return JSON.stringify(backData)
 }
