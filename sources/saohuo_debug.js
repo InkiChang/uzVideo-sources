@@ -1,8 +1,8 @@
 // ignore
-//@name:燒火電影-Debug
+//@name:燒火電影诊断
 //@version:1
 //@webSite:https://shdy2.com
-//@remark:诊断源——用户打开分类页后,把4个对照请求的status/len/error显示成卡片标题
+//@remark:诊断源
 //@type:101
 //@order: Z
 // ignore
