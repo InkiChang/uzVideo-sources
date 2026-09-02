@@ -23,15 +23,34 @@
 // ---------- XPTV → uzVideo POLYFILLS ----------
 function createCheerio() { return cheerio }
 function createCryptoJS() { return Crypto }
+// ⚠️ shdy2.com 由 Cloudflare 按请求头特征拦截: 仅 UA 的裸请求被返 522(16字节)
+// 实测(node, 2026-09): 携带完整 Chrome 浏览器头 → 200 + 真实 HTML
+// 因此 polyfill 层强制覆盖为实测可过的完整浏览器头(不受原 opts.headers 影响)
+const BROWSER_HEADERS = {
+    'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+    'Accept':
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+    'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+    'Sec-Ch-Ua': '"Chromium";v="128", "Google Chrome";v="128"',
+    'Sec-Ch-Ua-Mobile': '?0',
+    'Sec-Ch-Ua-Platform': '"Windows"',
+    'Sec-Fetch-Dest': 'document',
+    'Sec-Fetch-Mode': 'navigate',
+    'Sec-Fetch-Site': 'none',
+    'Upgrade-Insecure-Requests': '1',
+}
 const $fetch = {
     async get(url, opts) {
         opts = opts || {}
+        opts.headers = Object.assign({}, opts.headers || {}, BROWSER_HEADERS)
         const r = await req(url, opts)
         return { data: r.data, headers: r.headers || {}, error: r.error }
     },
     async post(url, body, opts) {
         opts = opts || {}
         opts.method = 'POST'
+        opts.headers = Object.assign({}, opts.headers || {}, BROWSER_HEADERS)
         if (body) {
             opts.body = typeof body === 'string' ? body : JSON.stringify(body)
         }
