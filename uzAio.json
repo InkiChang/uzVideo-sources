@@ -5,11 +5,11 @@
   "live": [],
   "vod": [
     {
-      "name": "黄果",
+      "name": "黄果短剧",
       "version": 1,
-      "remark": "移植自 XPTV huangguo.js",
-      "webSite": "",
-      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/huangguo_uz.js",
+      "remark": "移植自 XPTV huangguo.js (huangguoai.com)，HTML刮削源",
+      "webSite": "https://huangguoai.com",
+      "api": "https://cdn.jsdelivr.net/gh/InkiChang/uzVideo-sources@main/sources/huangguo.js",
       "type": 101,
       "order": "C"
     }

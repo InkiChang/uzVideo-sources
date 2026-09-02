@@ -19,7 +19,7 @@
 
 | 源名 | 文件 | Raw URL |
 |------|------|---------|
-| 黄果短剧 | [sources/huangguo_uz.js](sources/huangguo_uz.js) | `https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/huangguo_uz.js` |
+| 黄果短剧 | [sources/huangguo.js](sources/huangguo.js) | `https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/huangguo.js` |
 
 ### 方式二：聚合订阅导入
 
