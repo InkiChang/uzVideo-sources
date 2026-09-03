@@ -1,44 +1,53 @@
 {
-    "panTools": [],
-    "danMu": [],
-    "recommend": [],
-    "live": [],
-    "vod": [
-        {
-            "name": "黄果短剧",
-            "version": 1,
-            "remark": "移植自 XPTV huangguo.js (huangguoai.com)，HTML刮削源",
-            "webSite": "https://huangguoai.com",
-            "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/huangguo.js",
-            "type": 101,
-            "order": "C"
-        },
-        {
-            "name": "七色番",
-            "version": 1,
-            "remark": "移植自 XPTV 7sefun.js (7sefun.top)，HTML刮削源",
-            "webSite": "https://www.7sefun.top",
-            "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/7sefun_uz.js",
-            "type": 101,
-            "order": "C"
-        },
-        {
-            "name": "永乐影视",
-            "version": 1,
-            "remark": "移植自 XPTV ylys.js (ylys.tv)，MacCMS HTML刮削源",
-            "webSite": "https://www.ylys.tv",
-            "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/ylys_uz.js",
-            "type": 101,
-            "order": "C"
-        },
-        {
-            "name": "avdb",
-            "version": 1,
-            "remark": "移植自 XPTV avdb.js (avdbapi.com)，MacCMS JSON API源",
-            "webSite": "https://avdbapi.com",
-            "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/avdb_uz.js",
-            "type": 101,
-            "order": "C"
-        }
-    ]
+ "panTools": [],
+ "danMu": [],
+ "recommend": [],
+ "live": [],
+ "vod": [
+  {
+   "name": "黄果短剧",
+   "version": 1,
+   "remark": "移植自 XPTV huangguo.js (huangguoai.com)，HTML刮削源",
+   "webSite": "https://huangguoai.com",
+   "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/huangguo.js",
+   "type": 101,
+   "order": "C"
+  },
+  {
+   "name": "七色番",
+   "version": 1,
+   "remark": "移植自 XPTV 7sefun.js (7sefun.top)，HTML刮削源",
+   "webSite": "https://www.7sefun.top",
+   "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/7sefun_uz.js",
+   "type": 101,
+   "order": "C"
+  },
+  {
+   "name": "永乐影视",
+   "version": 1,
+   "remark": "移植自 XPTV ylys.js (ylys.tv)，MacCMS HTML刮削源",
+   "webSite": "https://www.ylys.tv",
+   "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/ylys_uz.js",
+   "type": 101,
+   "order": "C"
+  },
+  {
+   "name": "avdb",
+   "version": 1,
+   "remark": "移植自 XPTV avdb.js (avdbapi.com)，MacCMS JSON API源",
+   "webSite": "https://avdbapi.com",
+   "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/avdb_uz.js",
+   "type": 101,
+   "order": "C"
+  },
+  {
+   "name": "意影视",
+   "version": 1,
+   "remark": "移植自 XPTV yiys.js (yiys05.com)，JSON API源，内置RSA公钥解密token（无BigInt纯JS实现，兼容QuickJS）",
+   "webSite": "https://aleig4ah.yiys05.com",
+   "api": "https://raw.githubusercontent.com/InkiChang/uzVideo-sources/main/sources/yiys_uz.js",
+   "type": 101,
+   "order": "C"
+  }
+ ]
 }
